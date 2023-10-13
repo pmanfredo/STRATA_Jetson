@@ -18,6 +18,8 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
 )
 
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g")
+
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
@@ -221,6 +223,8 @@ link_directories(
 find_package(PCL REQUIRED)
 include_directories(include${PCL_INCLUDE_DIRS})
 add_executable(LiDAR src/LiDAR.cpp src/ObjectDetection/ObjectDetection.cpp 
-src/Visualize/Visualize.cpp src/DownsampleAndFilter/DownsampleAndFilter.cpp)
+src/Visualize/Visualize.cpp src/DownsampleAndFilter/DownsampleAndFilter.cpp 
+src/RawVisualize/RawVisualize.cpp src/Segment/Segment.cpp)
 
 target_link_libraries(LiDAR ${catkin_LIBRARIES} ${PCL_LIBRARIES} libHPS3DSDK.so)
+

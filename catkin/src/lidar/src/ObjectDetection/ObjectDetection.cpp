@@ -6,7 +6,7 @@
 #include <sensor_msgs/PointCloud2.h>
 #include <std_msgs/Header.h>
 
-ObjectDetection::ObjectDetection() : nh_("~"), minObjectSize(0.10)
+ObjectDetection::ObjectDetection() : nh_("~"), minObjectSize(0.05)
 {
     // Create a publisher for publishing object locations
     object_pub_ = nh_.advertise<sensor_msgs::PointCloud2>("object_locations", 1);
@@ -14,16 +14,17 @@ ObjectDetection::ObjectDetection() : nh_("~"), minObjectSize(0.10)
 
 void ObjectDetection::detectObjects(const pcl::PointCloud<pcl::PointXYZ>::Ptr &input_cloud)
 {
+    std::cout << "Detecting Objects Now" << std::endl << std::endl;
     // Object detection logic
 
     // Create a EuclideanClusterExtraction object
     pcl::EuclideanClusterExtraction<pcl::PointXYZ> ec;
 
     // Set the cluster tolerance (maximum distance between points in a cluster)
-    ec.setClusterTolerance(0.05); // 5 cm (adjust as needed)
+    ec.setClusterTolerance(0.10); // 5 cm (adjust as needed)
 
     // Set the minimum cluster size (minimum number of points in a cluster)
-    ec.setMinClusterSize(10); // 10 points (adjust as needed)
+    ec.setMinClusterSize(5); // 10 points (adjust as needed)
 
     // Set the input point cloud
     ec.setInputCloud(input_cloud);
@@ -74,6 +75,7 @@ const std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> &ObjectDetection::getDete
 // Function to publish object locations
 void ObjectDetection::publishObjectLocations(const std::vector<pcl::PointCloud<pcl::PointXYZ>::Ptr> &objects, const pcl::PCLHeader &header)
 {
+    std::cout << "Publishing Objects Now" << std::endl << std::endl;
     // Create a point cloud message for object locations
     pcl::PointCloud<pcl::PointXYZ> object_locations;
     for (const auto &object : objects)
@@ -93,6 +95,13 @@ void ObjectDetection::publishObjectLocations(const std::vector<pcl::PointCloud<p
     object_cloud.header.seq = header.seq;
     object_cloud.header.stamp = ros::Time::now(); // You can set the timestamp as needed
     object_cloud.header.frame_id = header.frame_id;
+
+     // Debug output
+    ROS_INFO("Detected %zu objects:", detected_objects_.size());
+    for (size_t i = 0; i < detected_objects_.size(); ++i)
+    {
+        ROS_INFO("Object %zu: Number of points = %zu", i, detected_objects_[i]->size());
+    }
 
     object_pub_.publish(object_cloud);
 }

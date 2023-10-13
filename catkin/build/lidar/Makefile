@@ -1598,6 +1598,60 @@ src/ObjectDetection/ObjectDetection.cpp.s:
 	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/ObjectDetection/ObjectDetection.cpp.s
 .PHONY : src/ObjectDetection/ObjectDetection.cpp.s
 
+src/RawVisualize/RawVisualize.o: src/RawVisualize/RawVisualize.cpp.o
+
+.PHONY : src/RawVisualize/RawVisualize.o
+
+# target to build an object file
+src/RawVisualize/RawVisualize.cpp.o:
+	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/RawVisualize/RawVisualize.cpp.o
+.PHONY : src/RawVisualize/RawVisualize.cpp.o
+
+src/RawVisualize/RawVisualize.i: src/RawVisualize/RawVisualize.cpp.i
+
+.PHONY : src/RawVisualize/RawVisualize.i
+
+# target to preprocess a source file
+src/RawVisualize/RawVisualize.cpp.i:
+	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/RawVisualize/RawVisualize.cpp.i
+.PHONY : src/RawVisualize/RawVisualize.cpp.i
+
+src/RawVisualize/RawVisualize.s: src/RawVisualize/RawVisualize.cpp.s
+
+.PHONY : src/RawVisualize/RawVisualize.s
+
+# target to generate assembly for a file
+src/RawVisualize/RawVisualize.cpp.s:
+	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/RawVisualize/RawVisualize.cpp.s
+.PHONY : src/RawVisualize/RawVisualize.cpp.s
+
+src/Segment/Segment.o: src/Segment/Segment.cpp.o
+
+.PHONY : src/Segment/Segment.o
+
+# target to build an object file
+src/Segment/Segment.cpp.o:
+	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/Segment/Segment.cpp.o
+.PHONY : src/Segment/Segment.cpp.o
+
+src/Segment/Segment.i: src/Segment/Segment.cpp.i
+
+.PHONY : src/Segment/Segment.i
+
+# target to preprocess a source file
+src/Segment/Segment.cpp.i:
+	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/Segment/Segment.cpp.i
+.PHONY : src/Segment/Segment.cpp.i
+
+src/Segment/Segment.s: src/Segment/Segment.cpp.s
+
+.PHONY : src/Segment/Segment.s
+
+# target to generate assembly for a file
+src/Segment/Segment.cpp.s:
+	cd /home/strata/git/IMU/STRATA_Jetson/catkin/build && $(MAKE) -f lidar/CMakeFiles/LiDAR.dir/build.make lidar/CMakeFiles/LiDAR.dir/src/Segment/Segment.cpp.s
+.PHONY : src/Segment/Segment.cpp.s
+
 src/Visualize/Visualize.o: src/Visualize/Visualize.cpp.o
 
 .PHONY : src/Visualize/Visualize.o
@@ -1737,6 +1791,12 @@ help:
 	@echo "... src/ObjectDetection/ObjectDetection.o"
 	@echo "... src/ObjectDetection/ObjectDetection.i"
 	@echo "... src/ObjectDetection/ObjectDetection.s"
+	@echo "... src/RawVisualize/RawVisualize.o"
+	@echo "... src/RawVisualize/RawVisualize.i"
+	@echo "... src/RawVisualize/RawVisualize.s"
+	@echo "... src/Segment/Segment.o"
+	@echo "... src/Segment/Segment.i"
+	@echo "... src/Segment/Segment.s"
 	@echo "... src/Visualize/Visualize.o"
 	@echo "... src/Visualize/Visualize.i"
 	@echo "... src/Visualize/Visualize.s"

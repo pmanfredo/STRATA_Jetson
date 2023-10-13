@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/LiDAR.dir/src/ObjectDetection/ObjectDetection.cpp.o"
   "CMakeFiles/LiDAR.dir/src/Visualize/Visualize.cpp.o"
   "CMakeFiles/LiDAR.dir/src/DownsampleAndFilter/DownsampleAndFilter.cpp.o"
+  "CMakeFiles/LiDAR.dir/src/RawVisualize/RawVisualize.cpp.o"
+  "CMakeFiles/LiDAR.dir/src/Segment/Segment.cpp.o"
   "/home/strata/git/IMU/STRATA_Jetson/catkin/devel/lib/lidar/LiDAR.pdb"
   "/home/strata/git/IMU/STRATA_Jetson/catkin/devel/lib/lidar/LiDAR"
 )

@@ -1,55 +1,55 @@
 #include "DownsampleAndFilter.h"
+#include <pcl/point_types.h>
+#include <pcl/kdtree/kdtree_flann.h>
+#include <iostream>
+#include <pcl/point_cloud.h>
 #include <pcl/filters/voxel_grid.h>
-#include <pcl/filters/statistical_outlier_removal.h>
 
-// Constructor for the DownsampleAndFilter class
-// Initializes the default voxel grid leaf size to 0.01 meters
-DownsampleAndFilter::DownsampleAndFilter() : leaf_size_(0.01)
-{
-    // Default voxel grid leaf size
+DownsampleAndFilter::DownsampleAndFilter() {
+    // Constructor
+    leaf_size_ = 1.0f; // Default leaf size
 }
 
-// Set the voxel grid leaf size
-void DownsampleAndFilter::setLeafSize(float leaf_size)
-{
+void DownsampleAndFilter::setLeafSize(float leaf_size) {
     leaf_size_ = leaf_size;
 }
 
-// Downsampling function using voxel grid filtering
-// Takes an input point cloud and downsamples it
-void DownsampleAndFilter::downsample(const pcl::PointCloud<pcl::PointXYZ>::Ptr &input_cloud,
-                                     pcl::PointCloud<pcl::PointXYZ>::Ptr &output_cloud)
-{
-    // Create a VoxelGrid filter object
+void DownsampleAndFilter::downsample(const pcl::PointCloud<pcl::PointXYZ>& inputCloud,
+                                     pcl::PointCloud<pcl::PointXYZ>& downsampledCloud) {
+    // Voxel grid downsampling
     pcl::VoxelGrid<pcl::PointXYZ> sor;
+    sor.setInputCloud(inputCloud.makeShared());
+    sor.setLeafSize(leaf_size_, leaf_size_, leaf_size_); // Use the leaf_size_ member variable
+    sor.filter(downsampledCloud);
 
-    // Set the input cloud for the filter
-    sor.setInputCloud(input_cloud);
-
-    // Set the leaf size for the VoxelGrid filter
-    sor.setLeafSize(leaf_size_, leaf_size_, leaf_size_);
-
-    // Apply the VoxelGrid filter to downsample the input cloud
-    sor.filter(*output_cloud);
+    // Debug print statement
+    std::cout << "Downsampled Point Cloud Size: " << downsampledCloud.size() << std::endl;
 }
 
-// Function to remove outliers using StatisticalOutlierRemoval filter
-void DownsampleAndFilter::removeOutliers(const pcl::PointCloud<pcl::PointXYZ>::Ptr &input_cloud,
-                                         pcl::PointCloud<pcl::PointXYZ>::Ptr &output_cloud,
-                                         int mean_k, double stddev_mul_thresh)
-{
-    // Create a StatisticalOutlierRemoval filter object
-    pcl::StatisticalOutlierRemoval<pcl::PointXYZ> sor;
+void DownsampleAndFilter::removeOutliers(const pcl::PointCloud<pcl::PointXYZ>& inputCloud,
+                                        pcl::PointCloud<pcl::PointXYZ>& filteredCloud) {
+    // Create a KdTreeFLANN for the input cloud
+    pcl::KdTreeFLANN<pcl::PointXYZ> kdtree;
+    kdtree.setInputCloud(inputCloud.makeShared());
 
-    // Set the input cloud for the filter
-    sor.setInputCloud(input_cloud);
+    // Define the search radius (e.g., 5 centimeters)
+    const float searchRadius = 0.10; // 10 centimeters in meters
 
-    // Set the number of nearest neighbors to consider for mean distance estimation
-    sor.setMeanK(mean_k);
+    // Iterate through the points in the input cloud and remove outliers using radius-based search
+    for (const pcl::PointXYZ& point : inputCloud.points) {
+        std::vector<int> pointIdx;
+        std::vector<float> pointSquaredDistance;
 
-    // Set the standard deviation multiplier threshold
-    sor.setStddevMulThresh(stddev_mul_thresh);
+        // Perform radius-based search with the chosen search radius
+        if (kdtree.radiusSearch(point, searchRadius, pointIdx, pointSquaredDistance) > 1) {
+            // If there are more than one point within the specified radius, consider it an inlier
+            filteredCloud.push_back(point);
+        }else {
+            // Debug print statement
+            //std::cout << "Point at (" << point.x << ", " << point.y << ", " << point.z << ") is an outlier." << std::endl;
+        }
+    }
 
-    // Apply the StatisticalOutlierRemoval filter to remove outliers
-    sor.filter(*output_cloud);
+    // Debug print statement
+    std::cout << "Filtered Point Cloud Size: " << filteredCloud.size() << std::endl;
 }
