@@ -3,8 +3,7 @@
 import serial
 import rospy
 import RPi.GPIO as GPIO
-from std_msgs.msg import Float32, UInt8, Bool, Float64MultiArray
-from geometry_msgs.msg import Vector3
+from std_msgs.msg import Float32, Float64MultiArray
 import struct, array
 
 SERIAL_PORT = '/dev/ttyTHS1'
@@ -14,6 +13,7 @@ SET_WHEEL_SPEED = bytes(b'\x01') # 4 double array of speeds (rpm)
 STOP_WHEELS = bytes(b'\x02') # No args
 GET_WHEEL_SPEED = bytes(b'\x03') # Returns 4 double array of speeds (rpm)
 GET_WHEEL_POSITION = bytes(b'\x04') # Returns 4 double array of position (revol
+SET_TURN_ANGLE = bytes(b'\x07') # int32 angle in degrees
 
 RETURN_WHEEL_SPEED = bytes(b'\x05')
 RETURN_WHEEL_POSITION = bytes(b'\x06')
@@ -85,9 +85,11 @@ if __name__ == "__main__":
         last_turn = target_turn
         
         wheel_speeds = [target_speed]*4
-        for i in range(0, 4, 2):
-            wheel_speeds[i] += target_turn
-            wheel_speeds[i+1] -= target_turn
+        
+        # Set turn angle
+        data = bytearray(SET_TURN_ANGLE)
+        data.extend(struct.pack("i", int(target_turn)))
+        ser.write(data)
         
         # Set wheel speed
         if target_speed == 0:
@@ -97,7 +99,6 @@ if __name__ == "__main__":
             for i in wheel_speeds:
                 data.extend(struct.pack("d", i))
                 
-            print("Sending: " + str(data))
             ser.write(data)
             
         rate.sleep()

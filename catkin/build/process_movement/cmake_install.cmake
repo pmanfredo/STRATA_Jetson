@@ -52,7 +52,3 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/process_movement" TYPE FILE FILES "/home/strata/git/movement/STRATA_Jetson/catkin/src/process_movement/package.xml")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/process_movement" TYPE PROGRAM FILES "/home/strata/git/movement/STRATA_Jetson/catkin/build/process_movement/catkin_generated/installspace/code.py")
-endif()
-

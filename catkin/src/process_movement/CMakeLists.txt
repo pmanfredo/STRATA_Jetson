@@ -8,7 +8,7 @@ project(process_movement)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
-  rospy
+  roscpp
 )
 
 ## System dependencies are found with CMake's conventions
@@ -103,7 +103,7 @@ find_package(catkin REQUIRED COMPONENTS
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES process_movement
-#  CATKIN_DEPENDS rospy
+#  CATKIN_DEPENDS roscpp
 #  DEPENDS system_lib
 )
 
@@ -203,6 +203,14 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
-catkin_install_python(PROGRAMS src/code.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+find_package(catkin REQUIRED COMPONENTS
+    roscpp
 )
+
+include_directories(
+    ${catkin_INCLUDE_DIRS}
+)
+
+add_executable(process_movement src/code.cpp)
+target_link_libraries(process_movement ${catkin_LIBRARIES})
+
