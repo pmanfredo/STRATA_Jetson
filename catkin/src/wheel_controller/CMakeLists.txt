@@ -203,6 +203,6 @@ include_directories(
 
 
 
-catkin_install_python(PROGRAMS wheelControl.py
+catkin_install_python(PROGRAMS teensyControl.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )

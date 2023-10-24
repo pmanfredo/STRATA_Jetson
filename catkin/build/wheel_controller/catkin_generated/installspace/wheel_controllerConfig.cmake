@@ -67,14 +67,14 @@ set(wheel_controller_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("FALSE" STREQUAL "TRUE")
-  set(wheel_controller_SOURCE_PREFIX /home/strata/git/STRATA_Jetson/catkin/src/wheel_controller)
-  set(wheel_controller_DEVEL_PREFIX /home/strata/git/STRATA_Jetson/catkin/devel)
+  set(wheel_controller_SOURCE_PREFIX /home/strata/git/movement/STRATA_Jetson/catkin/src/wheel_controller)
+  set(wheel_controller_DEVEL_PREFIX /home/strata/git/movement/STRATA_Jetson/catkin/devel)
   set(wheel_controller_INSTALL_PREFIX "")
   set(wheel_controller_PREFIX ${wheel_controller_DEVEL_PREFIX})
 else()
   set(wheel_controller_SOURCE_PREFIX "")
   set(wheel_controller_DEVEL_PREFIX "")
-  set(wheel_controller_INSTALL_PREFIX /home/strata/git/STRATA_Jetson/catkin/install)
+  set(wheel_controller_INSTALL_PREFIX /home/strata/git/movement/STRATA_Jetson/catkin/install)
   set(wheel_controller_PREFIX ${wheel_controller_INSTALL_PREFIX})
 endif()
 
@@ -154,7 +154,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/strata/git/STRATA_Jetson/catkin/install/lib;/home/strata/git/STRATA_Jetson/catkin/devel/lib;/opt/ros/melodic/lib)
+    foreach(path /home/strata/git/movement/STRATA_Jetson/catkin/install/lib;/home/strata/git/movement/STRATA_Jetson/catkin/devel/lib;/opt/ros/melodic/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
